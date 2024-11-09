@@ -1,0 +1,12 @@
+<th:fragment>
+    <nav class="navbar navbar-expand-lg bg-light fixed-top">
+        <div class="container-fluid">
+            <span class="navbar-brand">Place Offering App</span>
+            <div class="justify-content-end">
+                <form action="/" class="form-inline my-2 my-lg-0" th:object="${logout}" th:action="@{/logout}" method="post">
+                    <input type="submit" value="Logout" class="btn btn btn-danger"/>
+                </form>
+            </div>
+        </div>
+    </nav>
+</th:fragment>

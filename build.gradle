@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.3'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'io.homeproject.placeofferingapp'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('logbackVersion', '1.5.8')
+    set('slf4jVersion', '2.0.16')
+    set('commonIOVersion', '2.17.0')
+    set('apacheClientVersion', '5.3')
+    set('lombokVersion', '1.18.34')
+    set('caffeineVersion', '3.1.8')
+    set('logbackEncoderVersion', '8.0')
+    set('hibernateValidatorVersion', "8.0.1.Final")
+}
+
+dependencies {
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+//    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation "org.apache.httpcomponents.client5:httpclient5:${apacheClientVersion}"
+    implementation "org.apache.httpcomponents.core5:httpcore5:${apacheClientVersion}"
+
+    implementation "commons-io:commons-io:${commonIOVersion}"
+    implementation "ch.qos.logback:logback-core:${logbackVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "com.github.ben-manes.caffeine:caffeine:${caffeineVersion}"
+    implementation "net.logstash.logback:logstash-logback-encoder:${logbackEncoderVersion}"
+    implementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    runtimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
+
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

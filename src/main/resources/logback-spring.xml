@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+
+<configuration>
+    <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
+    <import class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+    <import class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"/>
+    <import class="ch.qos.logback.core.ConsoleAppender"/>
+
+    <property name="file_datetime_pattern" value="%d{yyyy-MM-dd}"/>
+    <property name="logs_dir" value="${LOGS_DIR:-logs}"/>
+    <property name="log_level" value="${LOG_LEVEL:-INFO}"/>
+    <property name="timestamp_format" value="yyyy-MM-dd HH:mm:ss.SSS Z"/>
+    <property name="encoder_pattern"
+              value="[timestamp=%d{${timestamp_format}}] [Level=%highlight(%level)] [thread=%magenta(%thread)] [logger=%cyan(%logger)] [class=%yellow(%class{0})] [method=%yellow(%method)] [message=%msg]\n"/>
+
+    <conversionRule conversionWord="stacktrace" class="net.logstash.logback.stacktrace.ShortenedThrowableConverter"/>
+
+    <appender name="common_appender" class="RollingFileAppender" additivity="false">
+        <file>${logs_dir}/common/common.log</file>
+        <rollingPolicy class="TimeBasedRollingPolicy">
+            <fileNamePattern>common-${file_datetime_pattern}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp/>
+                <pattern>
+                    <pattern>
+                        {
+                        "logger": "%logger",
+                        "level": "%level",
+                        "thread": "%thread",
+                        "message": "%message",
+                        "stackTrace": "%stacktrace"
+                        }
+                    </pattern>
+                </pattern>
+                <logstashMarkers/>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="upstream_appender" class="RollingFileAppender" additivity="false">
+        <file>${logs_dir}/upstream/upstream.log</file>
+        <rollingPolicy class="TimeBasedRollingPolicy">
+            <fileNamePattern>upstream-${file_datetime_pattern}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp/>
+                <pattern>
+                    <pattern>
+                        {
+                        "logger": "%logger",
+                        "level": "%level",
+                        "thread": "%thread",
+                        "message": "%message",
+                        "stackTrace": "%stacktrace"
+                        }
+                    </pattern>
+                </pattern>
+                <logstashMarkers/>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="console_appender" class="ConsoleAppender">
+        <encoder class="PatternLayoutEncoder">
+            <pattern>${encoder_pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${log_level}">
+        <appender-ref ref="console_appender"/>
+        <appender-ref ref="common_appender"/>
+    </root>
+
+    <logger name="upstream" level="${log_level}">
+        <appender-ref ref="upstream_appender"/>
+    </logger>
+</configuration>
