@@ -46,4 +46,9 @@ public final class PlacesServiceImpl implements PlacesService {
     public List<ConditionsGroup> getConditionGroups() {
         return conditionsCache.get(CONDITIONS_KEY, ignored -> client.getConditionGroups());
     }
+
+    @Override
+    public List<Object> getPlaces() {
+        return List.of();
+    }
 }

@@ -6,6 +6,7 @@ import io.homeproject.placeofferingapp.geoapify.service.PlacesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +32,10 @@ public final class PlacesEndpoint implements Endpoint {
     @GetMapping("/conditions")
     public ResponseEntity<List<ConditionsGroup>> getConditions() {
         return Endpoint.ok(placesService.getConditionGroups());
+    }
+
+    @PostMapping("/fetch")
+    public ResponseEntity<Object> getPlaces() {
+        return Endpoint.ok(placesService.getPlaces());
     }
 }

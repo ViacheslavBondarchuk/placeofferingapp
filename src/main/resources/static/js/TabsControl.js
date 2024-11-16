@@ -1,6 +1,7 @@
 const activeClassName = "active"
 const tupleIndexAttributeName = "tupleIndex"
 const hiddenClassName = "hidden"
+const shapeTypeAttributeName = "shape-type"
 
 class TabsControl {
     constructor(tabSelector = "", buttonSelector = "button") {
@@ -13,8 +14,10 @@ class TabsControl {
     init() {
         if (this.tabs.length === this.buttons.length) {
             for (let i = 0; i < this.buttons.length; i++) {
-                if(i === 0) {
-                    this.showTab(this.tabs[i])
+                if (i === 0) {
+                    const tab = this.tabs[i];
+                    this.showTab(tab)
+                    leafletMap.addSearchData(leafletMap.getShapeType(), tab.children[0])
                 }
                 this.tabs[i].setAttribute(tupleIndexAttributeName, i.toString())
                 this.buttons[i].setAttribute(tupleIndexAttributeName, i.toString())
@@ -39,9 +42,13 @@ class TabsControl {
     }
 
     onClick(event) {
+        let element = event.target;
+        leafletMap.setShapeType(element.getAttribute(shapeTypeAttributeName));
         for (let tab of this.tabs) {
-            if (tab.getAttribute(tupleIndexAttributeName) === event.target.getAttribute(tupleIndexAttributeName)) {
+            const attribute = element.getAttribute(tupleIndexAttributeName);
+            if (tab.getAttribute(tupleIndexAttributeName) === attribute) {
                 this.showTab(tab)
+                leafletMap.addSearchData(attribute, element.children[0])
             } else {
                 this.hideTab(tab)
             }

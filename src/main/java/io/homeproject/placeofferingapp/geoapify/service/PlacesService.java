@@ -17,5 +17,7 @@ public interface PlacesService {
 
     List<ConditionsGroup> getConditionGroups();
 
+    List<Object> getPlaces();
+
 
 }

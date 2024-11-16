@@ -1,0 +1,12 @@
+services:
+  mongodb:
+    container_name: mongodb
+    image: bitnami/mongodb:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_ROOT_USER: placeofferingapp
+      MONGODB_ROOT_PASSWORD: placeofferingapp
+      MONGODB_USERNAME: placeofferingapp
+      MONGODB_PASSWORD: placeofferingapp
+      MONGODB_DATABASE: placeofferingapp

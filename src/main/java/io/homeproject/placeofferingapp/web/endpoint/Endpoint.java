@@ -18,6 +18,11 @@ public interface Endpoint {
         return ResponseEntity.ok(value);
     }
 
+    static <T> ResponseEntity<T> ok() {
+        return ResponseEntity.ok()
+                .build();
+    }
+
     static <T> ResponseEntity<T> okWithPublicCache(T value, Duration maxAge) {
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(maxAge).cachePublic())

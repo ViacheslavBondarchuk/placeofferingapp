@@ -44,6 +44,8 @@ public final class GeoapifyHttpClientImpl implements GeoapifyHttpClient {
     private static final String X_KEY_NAME = "x";
     private static final String Y_KEY_NAME = "y";
     private static final String Z_KEY_NAME = "z";
+    private static final String CATEGORIES = "categories";
+    private static final String FILTER = "filter";
 
     private final GeoApifyKeyProvider apiKeyProvider;
     private final RestTemplate restTemplate;
@@ -125,6 +127,14 @@ public final class GeoapifyHttpClientImpl implements GeoapifyHttpClient {
         Map<String, ?> uriVariables = createMapFrameUri(request);
         String url = request.retina() ? endpointConfiguration.leafletretinaurl() : endpointConfiguration.leafletbaseurl();
         return RestTemplateUtils.fetch(restTemplate, url, new ParameterizedTypeReference<>() {}, uriVariables);
+    }
+
+    @Override
+    public List<Object> getPlaces() {
+        //categories={categories}&filter={filter}&limit={limit}&apiKey={key}
+
+
+        return List.of();
     }
 
 }

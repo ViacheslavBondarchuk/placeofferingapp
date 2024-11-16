@@ -24,4 +24,6 @@ public interface GeoapifyHttpClient {
     Object getLocationByReverseGeocoding(ReverseGeocodingRequest request);
 
     byte[] getMapFrame(MapFrameRequest request);
+
+    List<Object> getPlaces();
 }

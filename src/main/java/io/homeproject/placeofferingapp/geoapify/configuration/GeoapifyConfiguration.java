@@ -19,7 +19,8 @@ public record GeoapifyConfiguration(EndpointConfiguration endpoint, ConnectionCo
                                         String placemaincategories,
                                         String reversegeocode,
                                         String leafletbaseurl,
-                                        String leafletretinaurl) {
+                                        String leafletretinaurl,
+                                        String places) {
 
         public EndpointConfiguration(String ipinfo,
                                      String placeconditions,
@@ -28,7 +29,8 @@ public record GeoapifyConfiguration(EndpointConfiguration endpoint, ConnectionCo
                                      String placemaincategories,
                                      String reversegeocode,
                                      String leafletbaseurl,
-                                     String leafletretinaurl) {
+                                     String leafletretinaurl,
+                                     String places) {
             this.ipinfo = Objects.requireNonNull(ipinfo, "geoapify endpoint ipinfo cannot be null");
             this.placeconditions = Objects.requireNonNull(placeconditions, "geoapify endpoint placeconditions cannot be null");
             this.placecategories = Objects.requireNonNull(placecategories, "geoapify endpoint placecategories cannot be null");
@@ -37,6 +39,7 @@ public record GeoapifyConfiguration(EndpointConfiguration endpoint, ConnectionCo
             this.reversegeocode = Objects.requireNonNull(reversegeocode, "geoapify endpoint reversegeocode cannot be null");
             this.leafletbaseurl = Objects.requireNonNull(leafletbaseurl, "geoapify endpoint leafletbaseurl cannot be null");
             this.leafletretinaurl = Objects.requireNonNull(leafletretinaurl, "geoapify endpoint leafletretinaurl cannot be null");
+            this.places = Objects.requireNonNull(places, "geoapify endpoint places cannot be null");
         }
     }
 
