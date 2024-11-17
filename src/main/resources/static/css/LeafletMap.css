@@ -30,8 +30,7 @@
 }
 
 .tabs > .tab-content > div {
-    display: grid;
-    justify-content: center;
+    display: block;
 }
 
 .hidden {
@@ -76,7 +75,7 @@
     display: inline-block;
 }
 
-.tab-pane .geoapify-search-control-block > div > * {
+.tab-pane .geoapify-tab-control {
     display: block;
     width: 100%;
     margin-bottom: 2%;
@@ -129,5 +128,19 @@
 
 .label-dropdown-filter {
     border-bottom: 1px solid #aaa;
+}
+
+.search-group,
+.radius-group,
+.dropdown-container {
+    width: 96%;
+    margin-left: 1%;
+    margin-top: 3%;
+}
+.search-group > *,
+.radius-group > *,
+.dropdown-container > * {
+    display: block;
+    margin-top: 2%;
 }
 
