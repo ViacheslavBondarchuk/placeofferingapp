@@ -39,14 +39,12 @@ var common_utils = (function () {
     this.hide_element = function (element) {
         if (element) {
             element.classList.add(hiddenClassName);
-            element.classList.remove(activeClassName)
         }
     }
 
     this.show_element = function (element) {
         if (element) {
             element.classList.remove(hiddenClassName);
-            element.classList.add(activeClassName)
         }
     }
 

@@ -43,6 +43,11 @@
     color: rgba(0, 0, 0, 0.8);
 }
 
+.nav-link .tab-control-button .active {
+    color: #ED2553;
+    border: 3px solid  #ED2553 !important;
+}
+
 .leaflet-controls .tabs li {
     margin: 1%;
 }
@@ -144,3 +149,7 @@
     margin-top: 2%;
 }
 
+.tabs .nav-link.tab-control-button.active{
+    color: red !important;
+    border-color: red !important;
+}

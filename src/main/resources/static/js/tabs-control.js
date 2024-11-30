@@ -3,11 +3,18 @@ const shapeTypeAttributeName = "shape-type"
 
 class TabsControl {
     constructor(tabSelector = "", buttonSelector = "button") {
-        this.tabs = document.querySelectorAll(tabSelector);
+        this.tab = document.querySelector(tabSelector);
         this.buttons = document.querySelectorAll(buttonSelector);
+        this.categories_select = document.querySelector("#categories-select");
+        this.conditions_select = document.querySelector("#condition-select");
+        this.categories_selected_container = document.querySelector("#categories-selected-container");
+        this.conditions_selected_container = document.querySelector("#conditions-selected-container");
+        this.categories_dropdown = document.querySelector("#categories-dropdown")
+        this.conditions_dropdown = document.querySelector("#conditions-dropdown");
+        this.radius_group = document.querySelector("#radius-group");
+        this.search_group = document.querySelector("#search-group");
         this.categories = [];
         this.conditions = []
-        this.pairs = [];
     }
 
     async init() {
@@ -17,31 +24,23 @@ class TabsControl {
         this.fill_categories_selection()
         this.fill_conditions_selection()
 
-        if (this.tabs.length === this.buttons.length) {
-            for (let i = 0; i < this.buttons.length; i++) {
-                this.tabs[i].setAttribute(tupleIndexAttributeName, i.toString())
-                this.buttons[i].setAttribute(tupleIndexAttributeName, i.toString())
-                this.add_on_click_listener_for_button(this.buttons[i])
-                this.pairs.push([this.tabs[i], this.buttons[i]]);
-                if (i === 0) {
-                    const tab = this.tabs[i];
-                    this.show_rectangle_controls(this, tab)
-                    common_utils.set_shape_type(this.get_tab_shape_type(tab))
-                }
+        for (let i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].setAttribute(tupleIndexAttributeName, i.toString())
+            this.add_on_click_listener_for_button(this.buttons[i])
+            if (i === 0) {
+                common_utils.set_shape_type(this.get_tab_shape_type(this.buttons[i]));
+                this.show_active_tab(this.buttons[i]);
+                this.show_rectangle_controls(this)
             }
         }
     }
 
     fill_categories_selection() {
-        const select = document.querySelector("#categories-select");
-        const selected_container = document.querySelector("#categories-selected-container");
-        this.fill_selection(select, selected_container, this.categories)
+        this.fill_selection(this.categories_select, this.categories_selected_container, this.categories)
     }
 
     fill_conditions_selection() {
-        const select = document.querySelector("#condition-select");
-        const selected_container = document.querySelector("#conditions-selected-container");
-        this.fill_selection(select, selected_container, this.conditions)
+        this.fill_selection(this.conditions_select, this.conditions_selected_container, this.conditions)
     }
 
     fill_selection(select, selected_container, values = []) {
@@ -56,6 +55,8 @@ class TabsControl {
     }
 
     on_option_click(event, selected_container) {
+        event.stopPropagation();
+
         const wrapper = document.createElement("div");
         const remove_button = document.createElement("input");
         const span = document.createElement("span");
@@ -85,44 +86,49 @@ class TabsControl {
         return tab.getAttribute(shapeTypeAttributeName)
     }
 
-    show_rectangle_controls(scope, container) {
-        common_utils.show_element(tab)
-        common_utils.add_active_class(tab)
-
-        // await leaflet_map.handle_click_for_rectangle_area(leaflet_map, leaflet_map.get_coordinates());
-        // tabs_controls.
+    show_rectangle_controls(scope) {
+        common_utils.show_element(scope.conditions_dropdown);
+        common_utils.show_element(scope.categories_dropdown);
+        common_utils.hide_element(scope.search_group);
+        common_utils.hide_element(scope.radius_group);
     }
 
     show_circle_controls(scope) {
+        common_utils.show_element(scope.radius_group);
+        common_utils.show_element(scope.search_group);
+        common_utils.show_element(scope.conditions_dropdown);
+        common_utils.show_element(scope.categories_dropdown);
 
     }
 
     show_point_controls(scope) {
-
+        common_utils.show_element(scope.conditions_dropdown);
+        common_utils.show_element(scope.categories_dropdown);
+        common_utils.show_element(scope.search_group);
+        common_utils.hide_element(scope.radius_group);
     }
 
     add_on_click_listener_for_button(button) {
         button.addEventListener("click", e => this.on_click.call(this, e))
     }
 
-    on_click(event) {
-        let element = event.target;
-        common_utils.set_shape_type(element.getAttribute(shapeTypeAttributeName));
-        for (let tab of this.tabs) {
-            const attribute = element.getAttribute(tupleIndexAttributeName);
-            if (tab.getAttribute(tupleIndexAttributeName) === attribute) {
-                common_utils.show_element(tab)
-                common_utils.add_active_class(tab)
-                // leafletMap.addSearchData(attribute, element.children[0])
-
-                let container = element.children[0];
-                common_utils.call_function_by_for_rectangle_type(this, this.add_rectangle_controls_data_to_leaf_let_map, container)
-                common_utils.call_function_by_for_circle_type(this, this.add_circle_controls_data_to_leaf_let_map, container)
-                common_utils.call_function_by_for_point_type(this, this.add_point_controls_data_to_leaf_let_map, container)
-            } else {
-                common_utils.hide_element(tab)
-                common_utils.remove_active_class(tab)
+    show_active_tab(clicked_button) {
+        common_utils.add_active_class(clicked_button);
+        for (const button of this.buttons) {
+            if (clicked_button !== button) {
+                common_utils.remove_active_class(button)
             }
         }
+    }
+
+    on_click(event) {
+        event.stopPropagation();
+        let button = event.target;
+        common_utils.set_shape_type(button.getAttribute(shapeTypeAttributeName));
+        this.show_active_tab(button);
+        common_utils.call_function_by_for_rectangle_type(this, this.show_rectangle_controls, this);
+        common_utils.call_function_by_for_circle_type(this, this.show_circle_controls, this);
+        common_utils.call_function_by_for_point_type(this, this.show_point_controls, this);
+
     }
 }

@@ -19,30 +19,26 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link tab-control-button active" id="rectangle-tab" shape-type="rectangle"
-                            data-bs-toggle="tab" data-bs-target="#rectangle" type="button" role="tab"
+                            data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab"
                             aria-controls="rectangle" aria-selected="true">Rectangle
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link tab-control-button" id="circle-tab" shape-type="circle" data-bs-toggle="tab"
-                            data-bs-target="#circle" type="button" role="tab" aria-controls="circle"
+                            data-bs-target="#tab-content" type="button" role="tab" aria-controls="circle"
                             aria-selected="false">Circle
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link tab-control-button" id="specifier-tab" shape-type="specifier"
-                            data-bs-toggle="tab" data-bs-target="#specifier" type="button" role="tab"
+                    <button class="nav-link tab-control-button" id="specifier-tab" shape-type="point"
+                            data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab"
                             aria-controls="specifier" aria-selected="false">Specifier
                     </button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div th:insert="~{fragments/geoapify-tab-control}" class="tab-pane fade show" id="rectangle"
-                     role="tabpanel" aria-labelledby="rectangle-tab" shape-type="rectangle"></div>
-                <div th:insert="~{fragments/geoapify-tab-control}" class="tab-pane fade" id="circle"
-                     role="tabpanel" aria-labelledby="circle-tab" shape-type="circle"></div>
-                <div th:insert="~{fragments/geoapify-tab-control}" class="tab-pane fade" id="specifier"
-                     role="tabpanel" aria-labelledby="specifier-tab" shape-type="specifier"></div>
+                <div th:insert="~{fragments/geoapify-tab-control}" class="tab-pane fade show" id="tab-content"
+                     role="tabpanel" aria-labelledby="rectangle-tab"></div>
             </div>
 
         </div>
