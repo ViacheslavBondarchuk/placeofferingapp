@@ -20,11 +20,11 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserEndpoint implements Endpoint {
-    private final UserService userService;
+//    private final UserService userService;
 
     @PostMapping("/register")
     public RedirectView register(@ModelAttribute UserRegistrationDTO dto) {
-        userService.save(dto);
+//        userService.save(dto);
         return new RedirectView("/?success=true");
     }
 }

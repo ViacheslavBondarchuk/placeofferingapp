@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,15 +17,14 @@ import java.util.Set;
 
 
 @Getter
-
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder(toBuilder = true)
-@Document(collection = "users")
+//@Document(collection = "users")
 public class User implements UserDetails {
-    @Id
+//    @Id
     private String id;
-    @Indexed(unique = true)
+//    @Indexed(unique = true)
     private final String username;
     private final String password;
     private final Set<GrantedAuthority> authorities;

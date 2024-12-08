@@ -1,0 +1,43 @@
+{
+    "configurations": [
+        {
+            "name": "Build placeofferingapp",
+            "type": "gradle",
+            "workingDir": "D:\\Projects\\placeofferingapp",
+            "tasks": [
+                ":classes"
+            ],
+            "initScripts": {
+                "flmapper": "ext.mapPath = { path -> path }",
+                "Build placeofferingapp": "System.setProperty('org.gradle.java.compile-classpath-packaging', 'true')"
+            }
+        },
+        {
+            "name": "PlaceOfferingApp run",
+            "type": "spring-boot",
+            "workingDir": "D:\\Projects\\placeofferingapp",
+            "dependsOn": [
+                "Build placeofferingapp"
+            ],
+            "mainClass": "io.homeproject.placeofferingapp.PlaceOfferingApp",
+            "module": "placeofferingapp.main",
+            "environment": {
+                "api.geoapify.key": "7bcb005f47434c589f896694adecabc8"
+            },
+            "options": [
+                "-XX:TieredStopAtLevel=1",
+                "-Dspring.output.ansi.enabled=always",
+                "-Dcom.sun.management.jmxremote",
+                "-Dspring.jmx.enabled=true",
+                "-Dspring.liveBeansView.mbeanDomain",
+                "-Dspring.application.admin.enabled=true",
+                "-Dmanagement.endpoints.jmx.exposure.include=*",
+                "-Dfile.encoding=UTF-8",
+                "@C:\\Users\\Alyon\\AppData\\Local\\Temp\\idea_arg_file2020314282"
+            ],
+            "activeProfiles": [
+                ""
+            ]
+        }
+    ]
+}

@@ -153,3 +153,28 @@
     color: red !important;
     border-color: red !important;
 }
+
+.tabs > .tab-content > div .additional-buttons {
+    display: block;
+    margin-left: 1%;
+    width: 96%;
+}
+
+.tabs > .tab-content > div .additional-buttons > * {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.tabs > .tab-content > div .additional-buttons > .checkbox-container {
+    width: 100%;
+}
+
+.tabs > .tab-content > div .additional-buttons > .checkbox-container > * {
+    margin-top: 1%;
+    display: block;
+}
+
+.tabs > .tab-content > div .additional-buttons > .checkbox-container div {
+    display: flex;
+    justify-content: space-between;
+}

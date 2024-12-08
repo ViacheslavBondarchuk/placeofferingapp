@@ -82,5 +82,17 @@ var common_utils = (function () {
         return option;
     }
 
+    this.toggle_element = function (element) {
+        if(element) {
+            element.classList.toggle(hiddenClassName);
+        }
+    }
+
+    this.toggle_element_by_selector = function (selector) {
+        if (selector) {
+            toggle_element(document.querySelector(selector))
+        }
+    }
+
     return this;
 }())
